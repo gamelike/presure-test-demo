@@ -1,0 +1,11 @@
+server:
+  port: 18000
+  servlet:
+    context-path: /community
+spring:
+  application:
+    name: community
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: on
