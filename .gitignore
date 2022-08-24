@@ -1,5 +1,6 @@
 .idea
 .jml
 target
+.gradle
 
 **/target/**
