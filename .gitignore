@@ -5,3 +5,5 @@ target
 
 **/target/**
 /buildSrc/build/
+/module-common/build/
+/module-common/out/
