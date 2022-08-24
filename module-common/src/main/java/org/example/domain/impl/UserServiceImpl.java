@@ -9,7 +9,6 @@ import org.example.infrastructure.model.po.User;
 import org.example.infrastructure.repository.UserRepository;
 import org.example.rest.model.user.UserRequest;
 import org.example.rest.model.user.UserVo;
-import org.hibernate.query.criteria.internal.predicate.InPredicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -17,14 +16,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
