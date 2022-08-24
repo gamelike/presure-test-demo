@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.example.exception.ArgsException;
+import org.example.rest.model.user.UserVo;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.DigestUtils;
 
@@ -40,7 +41,7 @@ public class User {
     @Column(nullable = false, length = 32)
     private String account;
 
-    @Column(nullable = true, length = 32)
+    @Column(length = 32)
     private String username;
 
     @Column(nullable = false, length = 32)
@@ -62,6 +63,10 @@ public class User {
         if (!Objects.equals(this.password, DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)))) {
             throw new ArgsException("用户名或密码错误");
         }
+    }
+
+    public UserVo to() {
+        return new UserVo(this.username, this.account, this.firstName, this.lastName, this.email, this.createTime);
     }
 
 }

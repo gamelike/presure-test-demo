@@ -6,6 +6,8 @@ import org.example.domain.UserService;
 import org.example.domain.model.UserEntity;
 import org.example.exception.model.ResponseResult;
 import org.example.infrastructure.model.po.User;
+import org.example.rest.model.user.UserRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,14 +26,13 @@ public class UserController {
         return ResponseResult.success(register);
     }
 
-    @GetMapping("{username}")
-    public ResponseResult<List<User>> findUserByName(@PathVariable String username) {
-        return ResponseResult.success(userService.findUserByName(username));
+    @GetMapping("login/{account}/{password}")
+    public ResponseResult<User> login(@PathVariable String account,@PathVariable String password) {
+        return ResponseResult.success(userService.login(account, password));
     }
 
-    @GetMapping("findAll")
-    public ResponseResult<List<User>> findAll() {
-        return ResponseResult.success(userService.findAll());
+    @GetMapping("list")
+    public ResponseResult<Page<User>> getUserList(@RequestParam UserRequest request) {
+        return ResponseResult.success();
     }
-
 }

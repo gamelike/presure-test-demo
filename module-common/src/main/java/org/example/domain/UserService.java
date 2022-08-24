@@ -2,8 +2,9 @@ package org.example.domain;
 
 import org.example.domain.model.UserEntity;
 import org.example.infrastructure.model.po.User;
-
-import java.util.List;
+import org.example.rest.model.user.UserRequest;
+import org.example.rest.model.user.UserVo;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
 
@@ -13,7 +14,6 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    List<User> findUserByName(String username);
+    Page<UserVo> findUserList(UserRequest request);
 
-    List<User> findAll();
 }
