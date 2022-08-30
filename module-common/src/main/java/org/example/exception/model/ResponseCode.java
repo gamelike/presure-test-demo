@@ -21,7 +21,8 @@ public enum ResponseCode implements ResponseHandler{
     }
 
     @Override
-    public String getMessage() {
+    public String getCustomMessage() {
         return this.message;
     }
+
 }

@@ -4,6 +4,6 @@ public interface ResponseHandler {
 
     String getCode();
 
-    String getMessage();
+    String getCustomMessage();
 
 }

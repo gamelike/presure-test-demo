@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "community_user")
+@Table(name = "user")
 @Accessors(chain = true)
 @Data
 public class User {
@@ -46,6 +46,9 @@ public class User {
 
     @Column(nullable = false, length = 32)
     private String password;
+
+    @Column(nullable = false, length = 32)
+    private String groupId;
 
     @OneToMany(targetEntity = Post.class, mappedBy = "userId")
     private List<Post> postList;

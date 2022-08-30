@@ -15,7 +15,7 @@ public class Post {
     private Long id;
 
     @Column(name = "user_id", nullable = false, length = 32)
-    private String userId;
+    private Long userId;
 
     @Column(nullable = false, length = 128)
     private String subject;

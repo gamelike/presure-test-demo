@@ -5,7 +5,3 @@ server:
 spring:
   application:
     name: community
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: on

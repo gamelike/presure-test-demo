@@ -22,7 +22,7 @@ public class ArgsException extends RuntimeException implements ResponseHandler {
     }
 
     @Override
-    public String getMessage() {
-        return code.getMessage();
+    public String getCustomMessage() {
+        return code.getCustomMessage();
     }
 }
