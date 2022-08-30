@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "community_user")
 @Accessors(chain = true)
 @Data
 public class User {

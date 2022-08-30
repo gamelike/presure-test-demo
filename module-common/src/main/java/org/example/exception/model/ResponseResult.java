@@ -19,11 +19,11 @@ public class ResponseResult<T> {
     }
 
     public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult<>(ResponseCode.success.getCode(), ResponseCode.success.getMessage(), data);
+        return new ResponseResult<>(ResponseCode.success.getCode(), ResponseCode.success.getCustomMessage(), data);
     }
 
     public static <T> ResponseResult<T> success() {
-        return new ResponseResult<>(ResponseCode.success.getCode(), ResponseCode.success.getMessage(), null);
+        return new ResponseResult<>(ResponseCode.success.getCode(), ResponseCode.success.getCustomMessage(), null);
     }
 
     public static <T> ResponseResult<T> fail(String code, String message) {

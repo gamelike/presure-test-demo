@@ -7,15 +7,17 @@ import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
+
 /**
  * @author violet
  */
-@AutoConfigureTestDatabase
-@DataJpaTest
-@Import(DataSourceTestConfiguration.class)
-@Inherited
-@Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@DataJpaTest
+@Import(DataSourceTestConfiguration.class)
+@AutoConfigureTestDatabase(replace = NONE)
 public @interface JpaTest {
 }

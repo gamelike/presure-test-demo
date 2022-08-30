@@ -15,6 +15,7 @@ public class DataSourceTestConfiguration {
     }
 
     @Bean
+    @FlywayDataSource
     public HikariDataSource hikariDataSource(PostgreSQLContainer<?> container) {
        var hikariDataSource = new HikariDataSource();
        hikariDataSource.setJdbcUrl(container.getJdbcUrl());

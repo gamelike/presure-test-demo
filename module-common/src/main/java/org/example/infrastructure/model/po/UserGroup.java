@@ -10,7 +10,7 @@ import java.util.List;
  * @author violet
  */
 @Entity
-@Table(name = "user_group")
+@Table(name = "community_user_group")
 @Data
 @Accessors(chain = true)
 public class UserGroup {

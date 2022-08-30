@@ -2,6 +2,7 @@ package org.example.infrastructure.model.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,12 +21,17 @@ public class Post {
     @Column(nullable = false, length = 128)
     private String subject;
 
-    @Column(name = "content", nullable = true, length = 1024)
+    @Column(name = "content", nullable = true,length = 1024)
     private String content;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8")
-    @Column(name = "createTime", nullable = false, length = 32)
+    @Column(name = "create_time", nullable = false, length = 32)
     @CreationTimestamp
     private LocalDateTime createTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8")
+    @Column(name = "update_time", nullable = false, length = 32)
+    @UpdateTimestamp
+    private LocalDateTime updateTime;
 
 }

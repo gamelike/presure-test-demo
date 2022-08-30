@@ -52,6 +52,7 @@ allprojects {
         testCompileOnly 'org.projectlombok:lombok'
         testAnnotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.junit.jupiter:junit-jupiter'
         testImplementation "org.testcontainers:testcontainers"
         testImplementation "org.testcontainers:postgresql"
     }
