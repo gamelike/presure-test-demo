@@ -1,6 +1,8 @@
 package org.example.domain;
 
+import org.example.constant.AssetType;
 import org.example.domain.model.TokenEntity;
+import org.example.infrastructure.model.po.User;
 
 /**
  * manager token of the user.
@@ -11,36 +13,40 @@ public interface TokenManagerService {
 
 
     /**
-     * find token by userId.
+     * find token by account.
      *
-     * @param userId user id.
+     * @param account user id.
+     * @param assetType {@link AssetType}
      * @return {@link TokenEntity}
      */
-    TokenEntity findToken(String userId);
+    TokenEntity findToken(String account, AssetType assetType);
 
     /**
      * generate token to db.
      *
-     * @param userId user id.
+     * @param account user id.
+     * @param assetType {@link AssetType}
+     * @param user {@link User}
      * @return {@link TokenEntity}.
      */
-    TokenEntity createToken(String userId);
+    TokenEntity createToken(String account, AssetType assetType, User user);
 
     /**
      * renewal token.
      *
-     * @param userId user id.
-     * @param token token.
+     * @param account user id.
+     * @param assetType {@link AssetType}
      * @return {@link TokenEntity}
      */
-    TokenEntity subscribeToken(String userId,String token);
+    boolean subscribeToken(String account, AssetType assetType);
 
     /**
      * delete token.
      *
-     * @param userId user id.
-     * @param token token.
+     * @param account   user id.
+     * @param assetType {@link AssetType}
+     * @return delete success token.
      */
-    void deleteToken(String userId, String token);
+    boolean deleteToken(String account, AssetType assetType);
 
 }

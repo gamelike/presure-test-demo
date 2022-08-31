@@ -3,6 +3,7 @@ package org.example.rest.model.user;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,5 +15,6 @@ public record UserVo(String username,
                      String firstName,
                      String lastName,
                      String email,
-                     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime createTime) {
+                     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime createTime,
+                     @Nullable String token) {
 }

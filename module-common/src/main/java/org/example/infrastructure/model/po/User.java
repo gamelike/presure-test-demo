@@ -81,7 +81,10 @@ public class User {
     }
 
     public UserVo to() {
-        return new UserVo(this.username, this.account, this.firstName, this.lastName, this.email, this.createTime);
+        return new UserVo(this.username, this.account, this.firstName, this.lastName, this.email, this.createTime, null);
+    }
+    public UserVo to(String token) {
+        return new UserVo(this.username, this.account, this.firstName, this.lastName, this.email, this.createTime, token);
     }
 
 }
