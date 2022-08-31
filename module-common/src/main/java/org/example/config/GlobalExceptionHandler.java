@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ArgsException.class)
     public <T> ResponseResult<T> failArgsException(ArgsException e) {
         log.error("参数校验异常!", e);
-        return ResponseResult.fail(e.getCode(), e.getMessage());
+        return ResponseResult.fail(e.getCode(), e.getCustomMessage());
     }
 
 }

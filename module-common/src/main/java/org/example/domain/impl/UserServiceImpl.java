@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.UserService;
 import org.example.domain.model.UserEntity;
+import org.example.infrastructure.model.constant.UserStatus;
 import org.example.infrastructure.model.po.User;
 import org.example.infrastructure.repository.UserRepository;
 import org.example.rest.model.user.UserRequest;
@@ -13,9 +14,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.mail.internet.MimeMessage;
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
@@ -28,22 +33,29 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final JavaMailSender mailSender;
+
     @Override
     @Transactional
     public User registerUser(UserEntity user) {
         user.valid();
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        // TODO: FIXME wait send message.
         return userRepository.save(new User().setAccount(user.account())
                 .setUsername(user.username())
                 .setFirstName(user.firstName())
                 .setLastName(user.lastName())
                 .setPassword(DigestUtils.md5DigestAsHex(user.password().getBytes(StandardCharsets.UTF_8)))
                 .setEmail(user.email())
+                .setUserStatus(UserStatus.unactivated)
         );
     }
 
     @Override
     public User login(String account, String password) {
         User user = userRepository.findUserByAccountEquals(account);
+        user.validUserStatus();
         user.validPassword(password);
         return user;
     }

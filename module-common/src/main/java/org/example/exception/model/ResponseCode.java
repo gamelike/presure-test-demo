@@ -1,9 +1,10 @@
 package org.example.exception.model;
 
-public enum ResponseCode implements ResponseHandler{
+public enum ResponseCode implements ResponseHandler {
 
-    success("100", "success response!"),
+    success("200", "success response!"),
     argsException("400", "bad request args."),
+    unauthorizedException("401", "unauthorized user"),
     serverException("500", "server exception.");
 
 

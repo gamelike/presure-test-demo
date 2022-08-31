@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.example.exception.ArgsException;
+import org.example.exception.ServerException;
+import org.example.infrastructure.model.constant.UserStatus;
 import org.example.rest.model.user.UserVo;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.DigestUtils;
@@ -50,6 +52,10 @@ public class User {
     @Column(nullable = false, length = 32)
     private String groupId;
 
+    @Column(nullable = false, length = 4)
+    @Enumerated(value = EnumType.ORDINAL)
+    private UserStatus userStatus;
+
     @OneToMany(targetEntity = Post.class, mappedBy = "userId")
     private List<Post> postList;
 
@@ -60,6 +66,12 @@ public class User {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public void validUserStatus() {
+        if (!Objects.equals(this.userStatus, UserStatus.unactivated)) {
+            throw new ServerException("用户未激活!");
+        }
     }
 
     public void validPassword(String password) {
