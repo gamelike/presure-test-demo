@@ -5,14 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.constant.AssetType;
 import org.example.domain.TokenManagerService;
 import org.example.domain.model.TokenEntity;
+import org.example.exception.UnAuthorizedException;
 import org.example.infrastructure.model.po.User;
 import org.example.utils.RedisKeyUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
-import javax.annotation.Nullable;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -27,8 +25,11 @@ public class TokenManagerServiceImpl implements TokenManagerService {
 
     @Override
     public TokenEntity findToken(String account, AssetType assetType) {
-        String token = (String) redisTemplate.opsForValue().get(RedisKeyUtil.getTokenKey(account, assetType));
-        return new TokenEntity(account, token);
+        User user = (User) redisTemplate.opsForValue().get(RedisKeyUtil.getTokenKey(account, assetType));
+        if (Objects.isNull(user)) {
+            throw new UnAuthorizedException("没有关于该用户的认证信息");
+        }
+        return new TokenEntity(account, RedisKeyUtil.getTokenKey(account, assetType));
     }
 
     @Override
