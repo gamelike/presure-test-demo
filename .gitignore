@@ -7,3 +7,4 @@ target
 /buildSrc/build/
 /module-common/build/
 /module-common/out/
+application.properties
