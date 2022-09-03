@@ -14,6 +14,7 @@ import org.example.infrastructure.model.po.User;
 import org.example.infrastructure.repository.UserRepository;
 import org.example.rest.model.user.UserRequest;
 import org.example.rest.model.user.UserVo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -21,12 +22,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +41,12 @@ public class UserServiceImpl implements UserService {
 
     private final TokenManagerService tokenService;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private final String hostMail = "289392424@qq.com";
+
+    @Value("${host:localhost}")
+    private String host;
+
     @Override
     @Transactional
     public UserVo registerUser(UserEntity user) {
@@ -49,17 +55,27 @@ public class UserServiceImpl implements UserService {
                 .setUsername(user.username())
                 .setFirstName(user.firstName())
                 .setLastName(user.lastName())
-                .setPassword(DigestUtils.md5DigestAsHex(user.password().getBytes(StandardCharsets.UTF_8)))
+                .setPassword(user.password())
                 .setEmail(user.email())
                 .setUserStatus(UserStatus.unactivated)
         );
         // TODO: FIXME wait send message.
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        try {
+            helper.setFrom(hostMail);
+            helper.setTo(user.email());
+            helper.setSubject("激活" + user.account() + "的账号!");
+            helper.setText("请点击链接:http://" + host + ":8080/user/active/" + save.getId() + "激活账号");
+        } catch (MessagingException e) {
+            log.error("发送邮件失败,账号:{}", user.account());
+            throw new ServerException(e.getMessage());
+        }
         return save.to();
     }
 
     @Override
+    @Transactional
     public UserVo login(String account, String password, AssetType assetType) {
         User user = userRepository.findUserByAccountEquals(account);
         user.validUserStatus();

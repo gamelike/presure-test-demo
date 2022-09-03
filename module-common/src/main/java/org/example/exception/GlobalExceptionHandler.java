@@ -5,6 +5,9 @@ import org.example.exception.model.ResponseResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
@@ -22,9 +25,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnAuthorizedException.class)
-    public <T> ResponseResult<T> failUnAuthorizedException(UnAuthorizedException e) {
+    public void failUnAuthorizedException(UnAuthorizedException e, HttpServletResponse response) {
         log.error("未授权!", e);
-        return ResponseResult.fail(e.getCode(), e.getCustomMessage());
+        try {
+            // TODO: FIXME 重定向到登录界面.
+            response.sendRedirect("community/user/login");
+        } catch (IOException ex) {
+            throw new UnAuthorizedException(ex.getMessage());
+        }
     }
 
 }

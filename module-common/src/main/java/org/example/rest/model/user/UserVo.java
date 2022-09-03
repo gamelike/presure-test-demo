@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
  * @author violet
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public record UserVo(String username,
+public record UserVo(long id,
+                     String username,
                      String account,
                      String firstName,
                      String lastName,

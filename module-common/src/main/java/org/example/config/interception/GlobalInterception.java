@@ -3,6 +3,7 @@ package org.example.config.interception;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.exception.UnAuthorizedException;
+import org.example.infrastructure.model.constant.UserStatus;
 import org.example.infrastructure.model.po.User;
 import org.example.utils.UserUtil;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,6 +31,9 @@ public class GlobalInterception implements HandlerInterceptor {
         User user = (User) redisTemplate.opsForValue().get(token);
         if (Objects.isNull(user)) {
             throw new UnAuthorizedException("未授权认证!");
+        }
+        if (user.getUserStatus().equals(UserStatus.unactivated)) {
+            throw new UnAuthorizedException("未激活账号!");
         }
         UserUtil.set(user);
         return true;
