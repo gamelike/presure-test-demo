@@ -4,6 +4,8 @@ import org.example.exception.model.ResponseCode;
 import org.example.exception.model.ResponseHandler;
 
 /**
+ * unauthorized exception when login failed.
+ *
  * @author violet
  * @since 2022/8/31
  */

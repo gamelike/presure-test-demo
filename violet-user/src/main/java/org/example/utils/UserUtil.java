@@ -6,6 +6,8 @@ import org.springframework.lang.NonNull;
 import javax.annotation.Nullable;
 
 /**
+ * store user entity to context in a request.
+ *
  * @author violet
  * @since 2022/8/31
  */

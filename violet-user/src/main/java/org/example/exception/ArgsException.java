@@ -3,6 +3,9 @@ package org.example.exception;
 import org.example.exception.model.ResponseCode;
 import org.example.exception.model.ResponseHandler;
 
+/**
+ * throw the exception when valid args exception.
+ */
 public class ArgsException extends RuntimeException implements ResponseHandler {
 
     private final ResponseCode code;

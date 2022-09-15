@@ -5,4 +5,4 @@
  */
 
 rootProject.name = 'community-manager-system'
-include(':module-common')
+include(':violet-user')

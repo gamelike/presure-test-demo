@@ -4,6 +4,8 @@ import org.example.exception.model.ResponseCode;
 import org.example.exception.model.ResponseHandler;
 
 /**
+ * a general exception when server runtime exception.
+ *
  * @author violet
  */
 public class ServerException extends RuntimeException implements ResponseHandler {

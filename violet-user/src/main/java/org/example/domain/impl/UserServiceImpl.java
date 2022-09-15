@@ -27,6 +27,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,9 +68,12 @@ public class UserServiceImpl implements UserService {
             helper.setFrom(hostMail);
             helper.setTo(user.email());
             helper.setSubject("激活" + user.account() + "的账号!");
-            helper.setText("请点击链接:http://" + host + ":8080/user/active/" + save.getId() + "激活账号");
+            helper.setText("请点击链接:http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/user/active/" + save.getId() + "激活账号");
         } catch (MessagingException e) {
             log.error("发送邮件失败,账号:{}", user.account());
+            throw new ServerException(e.getMessage());
+        } catch (UnknownHostException e) {
+            log.error("地址错误", e);
             throw new ServerException(e.getMessage());
         }
         return save.to();

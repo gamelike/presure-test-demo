@@ -19,4 +19,4 @@ dependencies {
     testRuntimeOnly 'org.postgresql:postgresql'
 }
 
-description = 'module-common'
+description = 'violet-user'

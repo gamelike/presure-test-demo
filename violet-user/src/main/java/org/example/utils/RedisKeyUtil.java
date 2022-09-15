@@ -6,6 +6,8 @@ import org.springframework.util.DigestUtils;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * a general redis key util.
+ *
  * @author violet
  * @since 2022/8/31
  */

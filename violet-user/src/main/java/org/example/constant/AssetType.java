@@ -1,6 +1,8 @@
 package org.example.constant;
 
 /**
+ * login asset.
+ *
  * @author violet
  * @since 2022/8/31
  */

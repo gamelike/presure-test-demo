@@ -5,6 +5,6 @@ target
 
 **/target/**
 /buildSrc/build/
-/module-common/build/
-/module-common/out/
+/violet-user/build/
+/violet-user/out/
 application.properties
