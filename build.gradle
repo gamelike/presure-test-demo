@@ -46,7 +46,7 @@ allprojects {
     dependencies {
         api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
         api platform("com.google.guava:guava-bom:31.1-jre")
-        api platform('org.testcontainers:testcontainers-bom:1.17.3')
+        api platform('org.testcontainers:testcontainers-bom:1.17.5')
         implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
